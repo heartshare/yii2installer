@@ -36,7 +36,7 @@ sudo apt-get install -y php5-sqlite
 echo ==========================
 echo PostgreSQL extension
 echo ==========================
-sudo apt-get install -y php5-pgsql 
+sudo apt-get install -y php5-pgsql
 
 echo ==========================
 echo Memcache extension
@@ -47,6 +47,22 @@ echo ==========================
 echo RESTART APACHE
 echo ==========================
 sudo service apache2 restart
+
+
+
+echo ==========================
+echo SSH KEY
+echo ==========================
+echo PLEASE ENTER YOUR EMAIL:
+read EMAIL
+ssh-keygen -t rsa -C "$EMAIL"
+eval `ssh-agent`
+ssh-agent -s
+ssh-add ~/.ssh/id_rsa
+echo ADD THIS KEY TO GITHUB:
+cat ~/.ssh/id_rsa.pub
+read
+ssh -T git@github.com
 
 
 
@@ -70,4 +86,7 @@ composer create-project yiisoft/yii2-app-advanced $PROJECT 2.0.0
 
 
 
+echo ==========================
+echo INSTALLATION COMPLETE
+echo ==========================
 exit 0
